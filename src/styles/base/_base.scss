@@ -1,0 +1,45 @@
+#content_wrapper {
+  --webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.template {
+}
+
+.template:after,
+.template:before {
+  display: table;
+  content: " ";
+}
+
+.dir-rtl {
+  direction: rtl;
+}
+
+.dir-ltr {
+  direction: ltr;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.max-width-screen {
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  &.login_phoneNumber {
+    -webkit-box-shadow: 0 0 0 30px #40c4ff inset !important;
+  }
+}

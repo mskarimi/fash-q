@@ -1,0 +1,8 @@
+@import "src/styles/utils/variables";
+@import "antd/dist/reset.css";
+
+.btn_remove_effect {
+  & > div {
+    display: none;
+  }
+}

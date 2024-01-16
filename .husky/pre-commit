@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+#yarn test
+
+#check typescript types
+yarn run check-type ||
+(
+  echo '😠 first check types 😠';
+  false;
+)
+
+yarn run lint-staged

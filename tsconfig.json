@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "fash-q/*": ["./src/*"]
+      "@fash-q/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
