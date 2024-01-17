@@ -28,6 +28,7 @@ const config: Config = {
       },
       spacing: {
         screenSpace: "20px",
+        headerNormal: "56px",
       },
     },
   },

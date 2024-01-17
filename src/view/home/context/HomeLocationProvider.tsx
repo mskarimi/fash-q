@@ -48,7 +48,8 @@ const setLocation = (props: ISetLocation) => {
     if (payload === null) {
       return {
         ...state,
-        [`${key}Confirm`]: payload,
+        [key]: payload,
+        [`${key}Confirm`]: false,
       };
     }
     return {

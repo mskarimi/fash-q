@@ -12,7 +12,8 @@ import {latLng, latLngBounds, LeafletMouseEvent} from "leaflet";
 import {useMap} from "react-leaflet";
 
 function HomeMap() {
-  const {origin, destination} = useHomeLocation();
+  const {origin, destination, originConfirm, destinationConfirm} =
+    useHomeLocation();
   const dispatch = useHomeLocationAction();
 
   const points = useMemo<IMapPoint[]>(() => {
@@ -35,13 +36,13 @@ function HomeMap() {
 
   const onClick = useCallback(
     (event: LeafletMouseEvent) => {
-      if (!origin) {
+      if (!originConfirm) {
         dispatch(setOriginHomeLocation(event.latlng));
-      } else if (!destination) {
+      } else if (!destinationConfirm) {
         dispatch(setDestinationHomeLocation(event.latlng));
       }
     },
-    [destination, dispatch, origin]
+    [destinationConfirm, dispatch, originConfirm]
   );
 
   return (
@@ -52,7 +53,7 @@ function HomeMap() {
         points={[points]}
         zoomControl={false}
       >
-        <MapZoom points={points} />
+        <MapZoom points={points} activeZoom={destinationConfirm} />
       </Map>
     </>
   );
@@ -62,20 +63,21 @@ export default HomeMap;
 
 interface IMapZoom {
   points: IMapPoint[];
+  activeZoom: boolean;
 }
 
-function MapZoom({points}: IMapZoom) {
+function MapZoom({points, activeZoom}: IMapZoom) {
   const map = useMap();
 
   useEffect(() => {
-    if (points.length > 1) {
+    if (activeZoom) {
       const latlng = points.map((item) => {
         return latLng(item.lat, item.lng);
       });
       const bounds = latLngBounds(latlng);
       map.fitBounds(bounds);
     }
-  }, [map, points]);
+  }, [activeZoom, map, points]);
 
   return null;
 }
