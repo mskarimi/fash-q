@@ -7,7 +7,11 @@ import {
   useContext,
   useReducer,
 } from "react";
-import {LatLng} from "leaflet";
+
+interface LatLng {
+  lat: number;
+  lng: number;
+}
 
 const SET_ORIGIN = "setOrigin";
 const SET_DESTINATION = "setDestination";
@@ -42,9 +46,17 @@ interface ISetLocation {
   payload: unknown;
 }
 
+function isLatLng(payload: unknown): payload is LatLng {
+  return (
+    typeof payload === "object" &&
+    !!payload?.hasOwnProperty("lat") &&
+    !!payload?.hasOwnProperty("lng")
+  );
+}
+
 const setLocation = (props: ISetLocation) => {
   const {payload, state, key} = props;
-  if (payload instanceof LatLng || payload === null) {
+  if (isLatLng(payload) || payload === null) {
     if (payload === null) {
       return {
         ...state,
