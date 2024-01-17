@@ -1,6 +1,6 @@
 "use client";
 
-import {useCallback, useMemo} from "react";
+import {useCallback, useEffect, useMemo} from "react";
 import {
   setDestinationHomeLocation,
   setOriginHomeLocation,
@@ -8,7 +8,8 @@ import {
   useHomeLocationAction,
 } from "@fash-q/view/home/context/HomeLocationProvider";
 import Map, {IMapPoint} from "@fash-q/components/map/Map";
-import {LeafletMouseEvent} from "leaflet";
+import {latLng, latLngBounds, LeafletMouseEvent} from "leaflet";
+import {useMap} from "react-leaflet";
 
 function HomeMap() {
   const {origin, destination} = useHomeLocation();
@@ -50,9 +51,31 @@ function HomeMap() {
         className="relative w-full h-full"
         points={[points]}
         zoomControl={false}
-      ></Map>
+      >
+        <MapZoom points={points} />
+      </Map>
     </>
   );
 }
 
 export default HomeMap;
+
+interface IMapZoom {
+  points: IMapPoint[];
+}
+
+function MapZoom({points}: IMapZoom) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (points.length > 1) {
+      const latlng = points.map((item) => {
+        return latLng(item.lat, item.lng);
+      });
+      const bounds = latLngBounds(latlng);
+      map.fitBounds(bounds);
+    }
+  }, [map, points]);
+
+  return null;
+}
