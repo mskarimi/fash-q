@@ -49,6 +49,7 @@ function HomeMap() {
         onClick={onClick}
         className="relative w-full h-full"
         points={[points]}
+        zoomControl={false}
       ></Map>
     </>
   );
