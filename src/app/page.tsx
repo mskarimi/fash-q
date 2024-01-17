@@ -1,3 +1,9 @@
-export default function Home() {
-  return <div>صفحه اصلی</div>;
+import Home from "@fash-q/view/home";
+
+export default function HomePage() {
+  return (
+    <>
+      <Home />
+    </>
+  );
 }

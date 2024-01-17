@@ -24,9 +24,11 @@ export default function RootLayout({children}: PropsWithChildren) {
         />
       </head>
       <body className={className}>
-        <StyledComponentsRegistry>
-          <AntdProvider>{children}</AntdProvider>
-        </StyledComponentsRegistry>
+        <div className="flex flex-col max-width-screen h-full">
+          <StyledComponentsRegistry>
+            <AntdProvider>{children}</AntdProvider>
+          </StyledComponentsRegistry>
+        </div>
       </body>
     </html>
   );
