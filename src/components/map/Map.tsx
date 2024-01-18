@@ -79,6 +79,7 @@ function Map(props: IMap) {
           iconRetinaUrl: url,
           iconSize: [35, 35],
           iconAnchor: [17, 35],
+          popupAnchor: [0, -20],
         });
         const baseId = Math.round(Math.random() * new Date().getTime());
         const tmp = point.map((item, idx) => {
