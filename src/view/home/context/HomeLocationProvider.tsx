@@ -18,6 +18,7 @@ const SET_DESTINATION = "setDestination";
 const SET_CURRENT = "setCurrent";
 const SET_ORIGIN_CONFIRM = "setOriginConfirm";
 const SET_DESTINATION_CONFIRM = "setDestinationConfirm";
+const SET_PRICE = "setPrice";
 
 interface IHomeLocation {
   origin?: LatLng | null;
@@ -25,6 +26,8 @@ interface IHomeLocation {
   current?: LatLng | null;
   originConfirm: boolean;
   destinationConfirm: boolean;
+  price: number;
+  isLoading: boolean;
 }
 
 interface IAction {
@@ -33,6 +36,8 @@ interface IAction {
 }
 
 const initialState: IHomeLocation = {
+  isLoading: false,
+  price: 0,
   destinationConfirm: false,
   originConfirm: false,
 };
@@ -76,8 +81,21 @@ const setConfirm = (props: Omit<ISetLocation, "payload">) => {
   const {state, key} = props;
   return {
     ...state,
+    isLoading: key === "destinationConfirm",
     [key]: true,
   };
+};
+
+const setPrice = (props: ISetLocation) => {
+  const {state, payload, key} = props;
+  if (typeof payload === "number") {
+    return {
+      ...state,
+      isLoading: false,
+      [key]: payload,
+    };
+  }
+  return state;
 };
 
 function reducer(state: IHomeLocation, action: IAction): IHomeLocation {
@@ -95,6 +113,8 @@ function reducer(state: IHomeLocation, action: IAction): IHomeLocation {
         state,
         key: "destinationConfirm",
       });
+    case SET_PRICE:
+      return setPrice({state, key: "price", payload: action.payload});
     default:
       return state;
   }
@@ -135,6 +155,11 @@ export const setOriginConfirmHomeLocation = () => ({
 
 export const setDestinationConfirmHomeLocation = () => ({
   type: SET_DESTINATION_CONFIRM,
+});
+
+export const setPriceHomeLocation = (payload: number) => ({
+  type: SET_PRICE,
+  payload,
 });
 
 export function useHomeLocation() {

@@ -76,7 +76,7 @@ function MapZoom({points, activeZoom}: IMapZoom) {
         return latLng(item.lat, item.lng);
       });
       const bounds = latLngBounds(latlng);
-      map.fitBounds(bounds);
+      map.fitBounds(bounds, {padding: [20, 20]});
     }
   }, [activeZoom, map, points]);
 
