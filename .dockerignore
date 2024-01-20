@@ -3,5 +3,5 @@ node_modules
 .vscode
 .next
 .husky
-.github
+.git
 *.md
