@@ -1,8 +1,7 @@
 import AppHeader from "@fash-q/components/appHeader";
+import HomeHeaderBack from "@fash-q/view/home/component/homeHeader/HomeHeaderBack";
+import HomeHeaderBody from "@fash-q/view/home/component/homeHeader/HomeHeaderBody";
 import AppHeaderProfile from "@fash-q/components/appHeader/AppHeaderProfile";
-import HomeHeaderBack from "@fash-q/view/home/component/HomeHeaderBack";
-import HomeSelectTarget from "@fash-q/view/home/component/HomeSelectTarget";
-import HomeHeaderBody from "@fash-q/view/home/component/HomeHeaderBody";
 
 function HomeHeader() {
   return (
