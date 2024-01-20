@@ -11,7 +11,7 @@ import Map, {IMapPoint} from "@fash-q/components/map/Map";
 import {latLng, latLngBounds, LeafletMouseEvent} from "leaflet";
 import {useMap} from "react-leaflet";
 
-function HomeMap() {
+function HomeMapComponent() {
   const {origin, destination, originConfirm, destinationConfirm} =
     useHomeLocation();
   const dispatch = useHomeLocationAction();
@@ -54,12 +54,13 @@ function HomeMap() {
         zoomControl={false}
       >
         <MapZoom points={points} activeZoom={destinationConfirm} />
+        <CurrentLocation />
       </Map>
     </>
   );
 }
 
-export default HomeMap;
+export default HomeMapComponent;
 
 interface IMapZoom {
   points: IMapPoint[];
@@ -78,6 +79,19 @@ function MapZoom({points, activeZoom}: IMapZoom) {
       map.fitBounds(bounds);
     }
   }, [activeZoom, map, points]);
+
+  return null;
+}
+
+function CurrentLocation() {
+  const {current} = useHomeLocation();
+  const map = useMap();
+
+  useEffect(() => {
+    if (current?.lat && current.lng) {
+      map.flyTo({lat: current.lat, lng: current.lng}, map.getZoom());
+    }
+  }, [map, current]);
 
   return null;
 }
