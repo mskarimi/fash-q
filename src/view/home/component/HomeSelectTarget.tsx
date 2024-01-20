@@ -23,7 +23,6 @@ function HomeSelectTarget() {
             key={index}
             className={btnClassName}
             onClick={() => {
-              console.log("index", index);
               const div = divRef.current!;
               if (index === 1) {
                 div.style.transform = "translateX(-5rem)";
